@@ -1,0 +1,2529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>dtail — Every sale. Every detail.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300;400;500;600;700;800&family=Syne+Mono&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --black: #080808;
+  --black-2: #111111;
+  --black-3: #1a1a1a;
+  --card: #141414;
+  --card-hover: #1e1e1e;
+  --border: rgba(255,255,255,0.07);
+  --border-gold: rgba(245,166,35,0.3);
+  --gold: #F5A623;
+  --gold-light: #FFBF47;
+  --gold-dim: rgba(245,166,35,0.12);
+  --white: #F7F3EE;
+  --white-dim: rgba(247,243,238,0.6);
+  --white-dimmer: rgba(247,243,238,0.35);
+  --green: #2ECC71;
+  --red: #E74C3C;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ─── GRAIN OVERLAY ─── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.4;
+}
+
+/* ─── TYPOGRAPHY ─── */
+.serif { font-family: 'DM Serif Display', serif; }
+.mono { font-family: 'Syne Mono', monospace; }
+
+h1, h2, h3 { font-family: 'DM Serif Display', serif; line-height: 1.1; }
+
+/* ─── LAYOUT ─── */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+.container-wide { max-width: 1400px; margin: 0 auto; padding: 0 32px; }
+
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 20px 0;
+  transition: all 0.4s ease;
+}
+
+nav.scrolled {
+  background: rgba(8,8,8,0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 0;
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  font-size: 22px;
+  color: var(--white);
+  text-decoration: none;
+  letter-spacing: -0.5px;
+}
+
+.nav-logo span { color: var(--gold); }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--white-dim);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--white); }
+
+.nav-cta {
+  background: var(--gold);
+  color: var(--black) !important;
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-weight: 700 !important;
+  font-size: 14px;
+  transition: all 0.2s ease !important;
+}
+
+.nav-cta:hover {
+  background: var(--gold-light) !important;
+  transform: translateY(-1px);
+}
+
+/* ─── TICKER ─── */
+.ticker-wrap {
+  background: var(--gold);
+  padding: 10px 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.ticker {
+  display: inline-flex;
+  animation: ticker 30s linear infinite;
+}
+
+.ticker-item {
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--black);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 0 40px;
+}
+
+.ticker-dot {
+  color: rgba(0,0,0,0.4);
+}
+
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 120px 0 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 40%, rgba(245,166,35,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 80% at 20% 80%, rgba(245,166,35,0.04) 0%, transparent 50%);
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--gold-dim);
+  border: 1px solid var(--border-gold);
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 28px;
+}
+
+.hero-eyebrow-dot {
+  width: 6px; height: 6px;
+  background: var(--gold);
+  border-radius: 50%;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.hero h1 {
+  font-size: clamp(48px, 6vw, 80px);
+  line-height: 1.0;
+  color: var(--white);
+  margin-bottom: 12px;
+}
+
+.hero h1 em {
+  color: var(--gold);
+  font-style: italic;
+}
+
+.hero-tagline {
+  font-size: clamp(16px, 2vw, 18px);
+  color: var(--white-dim);
+  max-width: 480px;
+  margin: 24px 0 40px;
+  line-height: 1.7;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  background: var(--gold);
+  color: var(--black);
+  padding: 16px 32px;
+  border-radius: 10px;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-primary:hover {
+  background: var(--gold-light);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(245,166,35,0.3);
+}
+
+.btn-secondary {
+  color: var(--white-dim);
+  padding: 16px 24px;
+  border-radius: 10px;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  text-decoration: none;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-secondary:hover {
+  color: var(--white);
+  border-color: rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.04);
+}
+
+.hero-trust {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: 36px;
+}
+
+.hero-trust-text {
+  font-size: 13px;
+  color: var(--white-dimmer);
+}
+
+.hero-flags {
+  display: flex;
+  gap: 6px;
+  font-size: 18px;
+}
+
+/* ─── POS MOCKUP ─── */
+.pos-mockup {
+  position: relative;
+}
+
+.pos-screen {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow:
+    0 40px 80px rgba(0,0,0,0.6),
+    0 0 0 1px rgba(255,255,255,0.05),
+    inset 0 1px 0 rgba(255,255,255,0.07);
+}
+
+.pos-topbar {
+  background: var(--black-2);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+}
+
+.pos-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pos-logo-small {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  font-size: 13px;
+  color: var(--gold);
+}
+
+.pos-branch {
+  font-size: 11px;
+  color: var(--white-dimmer);
+  background: var(--black-3);
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.pos-sync {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: var(--green);
+}
+
+.pos-sync-dot {
+  width: 6px; height: 6px;
+  background: var(--green);
+  border-radius: 50%;
+}
+
+.pos-body {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  min-height: 380px;
+}
+
+.pos-items-panel { display: flex; flex-direction: column; gap: 10px; }
+
+.pos-search {
+  background: var(--black-3);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--white-dimmer);
+}
+
+.pos-items-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  flex: 1;
+}
+
+.pos-item {
+  background: var(--black-3);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.pos-item:hover, .pos-item.active {
+  border-color: var(--border-gold);
+  background: var(--gold-dim);
+}
+
+.pos-item-name {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+
+.pos-item-price {
+  font-size: 11px;
+  color: var(--gold);
+  font-weight: 700;
+}
+
+/* RECEIPT PANEL */
+.pos-receipt-panel {
+  background: var(--black-2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.receipt-header {
+  text-align: center;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed rgba(255,255,255,0.1);
+  margin-bottom: 12px;
+}
+
+.receipt-biz {
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--white);
+}
+
+.receipt-sub {
+  font-size: 10px;
+  color: var(--white-dimmer);
+}
+
+.receipt-items { flex: 1; display: flex; flex-direction: column; gap: 7px; }
+
+.receipt-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+}
+
+.receipt-item-name { color: var(--white-dim); }
+.receipt-item-price { color: var(--white); font-weight: 600; }
+
+.receipt-item.appearing {
+  animation: slideInItem 0.4s ease forwards;
+}
+
+@keyframes slideInItem {
+  from { opacity: 0; transform: translateX(10px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.receipt-divider {
+  border: none;
+  border-top: 1px dashed rgba(255,255,255,0.1);
+  margin: 10px 0;
+}
+
+.receipt-total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 12px;
+}
+
+.receipt-total-amount { color: var(--gold); }
+
+.receipt-pay-methods {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.pay-method {
+  flex: 1;
+  padding: 8px 4px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  font-size: 10px;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: var(--white-dim);
+}
+
+.pay-method.active {
+  border-color: var(--gold);
+  background: var(--gold-dim);
+  color: var(--gold);
+}
+
+.receipt-complete-btn {
+  background: var(--gold);
+  color: var(--black);
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  font-size: 13px;
+  width: 100%;
+  cursor: pointer;
+  transition: all 0.2s;
+  animation: pulseBtn 3s ease-in-out infinite;
+}
+
+@keyframes pulseBtn {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(245,166,35,0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(245,166,35,0); }
+}
+
+/* Floating notification */
+.pos-notification {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  background: var(--black-2);
+  border: 1px solid var(--border-gold);
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  animation: floatIn 0.6s ease 1.5s both, float 4s ease-in-out 2s infinite;
+  min-width: 220px;
+}
+
+@keyframes floatIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.9); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.notif-icon {
+  width: 36px; height: 36px;
+  background: rgba(46,204,113,0.15);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.notif-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.notif-sub {
+  font-size: 11px;
+  color: var(--white-dimmer);
+}
+
+/* Second floating card */
+.pos-card-2 {
+  position: absolute;
+  bottom: 30px;
+  left: -30px;
+  background: var(--black-2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  animation: floatIn2 0.6s ease 2s both, float2 5s ease-in-out 2.5s infinite;
+  min-width: 180px;
+}
+
+@keyframes floatIn2 {
+  from { opacity: 0; transform: translateY(20px) scale(0.9); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes float2 {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.card2-label { font-size: 10px; color: var(--white-dimmer); text-transform: uppercase; letter-spacing: 1px; }
+.card2-value { font-size: 22px; font-weight: 800; color: var(--gold); margin: 2px 0; }
+.card2-change { font-size: 11px; color: var(--green); font-weight: 600; }
+
+/* ─── STATS STRIP ─── */
+.stats-strip {
+  padding: 60px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+}
+
+.stat-item {
+  background: var(--black);
+  padding: 32px 24px;
+  text-align: center;
+}
+
+.stat-number {
+  font-family: 'DM Serif Display', serif;
+  font-size: 48px;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.stat-label { font-size: 13px; color: var(--white-dimmer); }
+
+/* ─── PROBLEM SECTION ─── */
+.problem-section {
+  padding: 120px 0;
+}
+
+.section-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+
+.problem-section h2 {
+  font-size: clamp(36px, 5vw, 60px);
+  margin-bottom: 20px;
+  max-width: 700px;
+}
+
+.problem-section h2 em {
+  color: var(--gold);
+  font-style: italic;
+}
+
+.problem-lead {
+  font-size: 18px;
+  color: var(--white-dim);
+  max-width: 600px;
+  line-height: 1.7;
+  margin-bottom: 60px;
+}
+
+.problem-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.problem-card {
+  background: var(--black);
+  padding: 36px 32px;
+  transition: background 0.3s;
+}
+
+.problem-card:hover { background: var(--card); }
+
+.problem-icon {
+  font-size: 28px;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.problem-card h3 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 10px;
+}
+
+.problem-card p {
+  font-size: 14px;
+  color: var(--white-dimmer);
+  line-height: 1.6;
+}
+
+/* ─── FEATURES ─── */
+.features-section { padding: 120px 0; }
+
+.features-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.features-header h2 {
+  font-size: clamp(36px, 5vw, 60px);
+  margin-bottom: 16px;
+}
+
+.features-header p {
+  font-size: 18px;
+  color: var(--white-dim);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.feature-card {
+  background: var(--black);
+  padding: 40px 36px;
+  position: relative;
+  transition: background 0.3s;
+  overflow: hidden;
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.feature-card:hover { background: var(--card); }
+.feature-card:hover::before { opacity: 1; }
+
+.feature-card-icon {
+  font-size: 32px;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.feature-card h3 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 19px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--white);
+}
+
+.feature-card p {
+  font-size: 14px;
+  color: var(--white-dimmer);
+  line-height: 1.65;
+  margin-bottom: 16px;
+}
+
+.feature-tag {
+  display: inline-block;
+  background: var(--gold-dim);
+  border: 1px solid var(--border-gold);
+  color: var(--gold);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+/* ─── VERTICALS ─── */
+.verticals-section {
+  padding: 120px 0;
+  overflow: hidden;
+}
+
+.verticals-header {
+  margin-bottom: 60px;
+}
+
+.verticals-header h2 {
+  font-size: clamp(36px, 5vw, 56px);
+  margin-bottom: 12px;
+}
+
+.verticals-scroll {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding-bottom: 20px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.verticals-scroll::-webkit-scrollbar { display: none; }
+
+.vertical-card {
+  flex-shrink: 0;
+  width: 260px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px 24px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.vertical-card:hover {
+  border-color: var(--border-gold);
+  background: var(--card-hover);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.vertical-emoji {
+  font-size: 36px;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.vertical-name {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.vertical-desc {
+  font-size: 13px;
+  color: var(--white-dimmer);
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.vertical-features {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.vertical-feature {
+  font-size: 12px;
+  color: var(--white-dim);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.vertical-feature::before {
+  content: '✓';
+  color: var(--gold);
+  font-weight: 700;
+  font-size: 10px;
+}
+
+/* ─── BRIDGE SECTION ─── */
+.bridge-section {
+  padding: 120px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.bridge-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 30% 50%, rgba(245,166,35,0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.bridge-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.bridge-content .section-eyebrow { margin-bottom: 12px; }
+.bridge-content h2 {
+  font-size: clamp(36px, 4vw, 52px);
+  margin-bottom: 20px;
+}
+
+.bridge-content p {
+  font-size: 17px;
+  color: var(--white-dim);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+.bridge-methods {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 36px;
+}
+
+.bridge-method {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px 20px;
+  transition: all 0.3s;
+}
+
+.bridge-method:hover {
+  border-color: var(--border-gold);
+  background: var(--card-hover);
+}
+
+.bridge-method-icon {
+  width: 40px; height: 40px;
+  background: var(--gold-dim);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.bridge-method-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 3px;
+}
+
+.bridge-method-desc { font-size: 12px; color: var(--white-dimmer); }
+
+/* Bridge visual */
+.bridge-visual {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 28px;
+}
+
+.bridge-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.bridge-node {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  border-radius: 10px;
+  background: var(--black-3);
+  border: 1px solid var(--border);
+  margin-bottom: 4px;
+  position: relative;
+}
+
+.bridge-node.active {
+  border-color: var(--border-gold);
+  background: var(--gold-dim);
+}
+
+.bridge-node-icon { font-size: 20px; flex-shrink: 0; }
+
+.bridge-node-text {
+  flex: 1;
+}
+
+.bridge-node-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.bridge-node-sub {
+  font-size: 11px;
+  color: var(--white-dimmer);
+}
+
+.bridge-arrow {
+  text-align: center;
+  font-size: 18px;
+  color: var(--gold);
+  margin: 6px 0;
+  opacity: 0.6;
+}
+
+.bridge-status {
+  font-size: 10px;
+  padding: 3px 8px;
+  border-radius: 100px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.bridge-status.live {
+  background: rgba(46,204,113,0.15);
+  color: var(--green);
+}
+
+.bridge-status.syncing {
+  background: var(--gold-dim);
+  color: var(--gold);
+  animation: syncPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes syncPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.bridge-summary {
+  margin-top: 16px;
+  padding: 16px;
+  background: var(--black-2);
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+}
+
+.bridge-sum-item { text-align: center; }
+.bridge-sum-value { font-size: 22px; font-weight: 800; color: var(--gold); }
+.bridge-sum-label { font-size: 10px; color: var(--white-dimmer); }
+
+/* ─── OWNER APP SECTION ─── */
+.app-section {
+  padding: 120px 0;
+  background: var(--black-2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.app-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.app-content h2 {
+  font-size: clamp(36px, 4vw, 52px);
+  margin-bottom: 20px;
+}
+
+.app-content p {
+  font-size: 17px;
+  color: var(--white-dim);
+  line-height: 1.7;
+  margin-bottom: 32px;
+}
+
+.app-features {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 36px;
+}
+
+.app-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.app-feature-icon {
+  width: 36px; height: 36px;
+  background: var(--gold-dim);
+  border: 1px solid var(--border-gold);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.app-feature-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 3px;
+}
+
+.app-feature-desc { font-size: 13px; color: var(--white-dimmer); }
+
+/* Phone mockup */
+.phone-mockup {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.phone-outer {
+  width: 260px;
+  background: var(--card);
+  border: 2px solid rgba(255,255,255,0.1);
+  border-radius: 40px;
+  padding: 14px;
+  box-shadow:
+    0 40px 80px rgba(0,0,0,0.6),
+    inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+.phone-notch {
+  width: 80px;
+  height: 26px;
+  background: var(--black);
+  border-radius: 0 0 16px 16px;
+  margin: 0 auto 14px;
+}
+
+.phone-screen {
+  background: var(--black-3);
+  border-radius: 28px;
+  overflow: hidden;
+  min-height: 480px;
+  padding: 16px;
+}
+
+.phone-app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.phone-greeting { font-size: 11px; color: var(--white-dimmer); }
+.phone-name { font-size: 15px; font-weight: 700; color: var(--white); }
+.phone-notif-bell { font-size: 20px; }
+
+.phone-revenue-card {
+  background: var(--gold);
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 16px;
+}
+
+.phone-rev-label { font-size: 11px; color: rgba(0,0,0,0.6); font-weight: 600; }
+.phone-rev-amount { font-size: 28px; font-weight: 800; color: var(--black); line-height: 1.1; }
+.phone-rev-change { font-size: 12px; color: rgba(0,0,0,0.6); margin-top: 4px; }
+
+.phone-stat-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.phone-stat {
+  background: var(--black-2);
+  border-radius: 12px;
+  padding: 14px;
+  border: 1px solid var(--border);
+}
+
+.phone-stat-label { font-size: 10px; color: var(--white-dimmer); }
+.phone-stat-value { font-size: 18px; font-weight: 700; color: var(--white); margin-top: 2px; }
+
+.phone-alerts-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--white-dimmer);
+  margin-bottom: 10px;
+}
+
+.phone-alert {
+  background: var(--black-2);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 8px 8px 0;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.phone-alert-text { font-size: 11px; color: var(--white-dim); }
+.phone-alert-action { font-size: 10px; color: var(--gold); font-weight: 700; }
+
+/* ─── LANGUAGES ─── */
+.lang-section {
+  padding: 80px 0;
+  text-align: center;
+}
+
+.lang-section h2 { font-size: clamp(28px, 4vw, 44px); margin-bottom: 12px; }
+.lang-section p { font-size: 16px; color: var(--white-dim); margin-bottom: 48px; }
+
+.lang-grid {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.lang-pill {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.lang-pill:hover {
+  border-color: var(--border-gold);
+  background: var(--gold-dim);
+  color: var(--gold);
+}
+
+.lang-flag { font-size: 22px; }
+
+/* ─── PRICING ─── */
+.pricing-section {
+  padding: 120px 0;
+}
+
+.pricing-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.pricing-header h2 { font-size: clamp(36px, 5vw, 56px); margin-bottom: 12px; }
+.pricing-header p { font-size: 17px; color: var(--white-dim); }
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.pricing-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 36px 30px;
+  position: relative;
+  transition: all 0.3s;
+}
+
+.pricing-card:hover { transform: translateY(-4px); }
+
+.pricing-card.featured {
+  border-color: var(--gold);
+  background: linear-gradient(135deg, rgba(245,166,35,0.08), var(--card));
+}
+
+.pricing-badge {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--gold);
+  color: var(--black);
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 5px 14px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+.pricing-name {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--white-dim);
+  margin-bottom: 12px;
+}
+
+.pricing-price {
+  margin-bottom: 6px;
+}
+
+.pricing-currency { font-size: 18px; font-weight: 700; color: var(--white-dim); vertical-align: top; margin-top: 8px; display: inline-block; }
+.pricing-amount { font-family: 'DM Serif Display', serif; font-size: 52px; color: var(--gold); line-height: 1; }
+.pricing-period { font-size: 14px; color: var(--white-dimmer); }
+
+.pricing-desc { font-size: 13px; color: var(--white-dimmer); margin-bottom: 28px; min-height: 40px; }
+
+.pricing-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+
+.pricing-features li {
+  font-size: 13px;
+  color: var(--white-dim);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pricing-features li::before {
+  content: '✓';
+  color: var(--gold);
+  font-weight: 700;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.pricing-features li.dimmed { color: var(--white-dimmer); }
+.pricing-features li.dimmed::before { content: '–'; color: var(--white-dimmer); }
+
+.btn-pricing {
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+  display: block;
+  text-decoration: none;
+}
+
+.btn-pricing-outline {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--white);
+}
+
+.btn-pricing-outline:hover {
+  border-color: rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.04);
+}
+
+.btn-pricing-gold {
+  background: var(--gold);
+  color: var(--black);
+  border: none;
+}
+
+.btn-pricing-gold:hover {
+  background: var(--gold-light);
+  box-shadow: 0 8px 24px rgba(245,166,35,0.3);
+}
+
+/* ─── TESTIMONIALS ─── */
+.testimonials-section {
+  padding: 120px 0;
+  background: var(--black-2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.testimonials-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.testimonials-header h2 { font-size: clamp(32px, 4vw, 48px); }
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.testimonial-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px 24px;
+  transition: all 0.3s;
+}
+
+.testimonial-card:hover {
+  border-color: var(--border-gold);
+  transform: translateY(-3px);
+}
+
+.testimonial-stars {
+  color: var(--gold);
+  font-size: 14px;
+  letter-spacing: 2px;
+  margin-bottom: 14px;
+}
+
+.testimonial-text {
+  font-size: 15px;
+  color: var(--white-dim);
+  line-height: 1.7;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.testimonial-avatar {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  background: var(--gold-dim);
+  border: 2px solid var(--border-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.testimonial-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.testimonial-role { font-size: 12px; color: var(--white-dimmer); }
+
+/* ─── CTA SECTION ─── */
+.cta-section {
+  padding: 140px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(245,166,35,0.1) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.cta-section h2 {
+  font-size: clamp(40px, 6vw, 80px);
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.cta-section h2 em { color: var(--gold); font-style: italic; }
+
+.cta-section p {
+  font-size: 18px;
+  color: var(--white-dim);
+  max-width: 500px;
+  margin: 0 auto 40px;
+  position: relative;
+  z-index: 2;
+}
+
+.cta-actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  position: relative;
+  z-index: 2;
+  flex-wrap: wrap;
+}
+
+.cta-note {
+  font-size: 13px;
+  color: var(--white-dimmer);
+  margin-top: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  padding: 60px 0 40px;
+  border-top: 1px solid var(--border);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 60px;
+  margin-bottom: 60px;
+}
+
+.footer-brand .nav-logo {
+  display: inline-block;
+  font-size: 24px;
+  margin-bottom: 12px;
+}
+
+.footer-brand p {
+  font-size: 14px;
+  color: var(--white-dimmer);
+  line-height: 1.6;
+  max-width: 240px;
+  margin-bottom: 20px;
+}
+
+.footer-social {
+  display: flex;
+  gap: 10px;
+}
+
+.social-btn {
+  width: 36px; height: 36px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.social-btn:hover {
+  border-color: var(--border-gold);
+  background: var(--gold-dim);
+}
+
+.footer-col h4 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--white);
+  margin-bottom: 20px;
+}
+
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+
+.footer-col ul li a {
+  font-size: 14px;
+  color: var(--white-dimmer);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-col ul li a:hover { color: var(--gold); }
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+
+.footer-bottom-left { font-size: 13px; color: var(--white-dimmer); }
+.footer-bottom-right { font-size: 13px; color: var(--white-dimmer); }
+
+/* ─── SCROLL ANIMATIONS ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  .hero-grid, .bridge-grid, .app-grid { grid-template-columns: 1fr; gap: 48px; }
+  .pos-mockup { display: none; }
+  .features-grid, .problem-cards { grid-template-columns: 1fr 1fr; }
+  .pricing-grid { grid-template-columns: 1fr; max-width: 420px; }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .nav-links { display: none; }
+}
+
+@media (max-width: 600px) {
+  .container, .container-wide { padding: 0 20px; }
+  .features-grid, .problem-cards { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .hero { padding: 100px 0 60px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">d<span>.</span>tail</a>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#verticals">Industries</a></li>
+        <li><a href="#bridge">Bridge</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#" class="nav-cta">Get Started Free</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- TICKER -->
+<div class="ticker-wrap" style="margin-top: 0; position: relative; z-index: 50;">
+  <div class="ticker">
+    <span class="ticker-item">Accra <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Kumasi <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Lagos <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Abidjan <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Nairobi <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Dakar <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Lomé <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Takoradi <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Tamale <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Sunyani <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Accra <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Kumasi <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Lagos <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Abidjan <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Nairobi <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Dakar <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Lomé <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Takoradi <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Tamale <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Sunyani <span class="ticker-dot">·</span></span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" style="padding-top: 80px;">
+  <div class="hero-bg"></div>
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <div class="hero-eyebrow">
+          <span class="hero-eyebrow-dot"></span>
+          Now live in Ghana
+        </div>
+        <h1>Every sale.<br><em>Every detail.</em></h1>
+        <p class="hero-tagline">The business operating system built for Africa. POS, booking, payments, gold trading, and owner monitoring — all connected, all offline-first.</p>
+        <div class="hero-actions">
+          <a href="#" class="btn-primary">
+            Start Free →
+          </a>
+          <a href="#" class="btn-secondary">
+            Watch demo
+          </a>
+        </div>
+        <div class="hero-trust">
+          <span class="hero-flags">🇬🇭 🇳🇬 🇨🇮 🇸🇳 🇰🇪</span>
+          <span class="hero-trust-text">Works across Africa · GRA compliant · Supports MTN MoMo</span>
+        </div>
+      </div>
+
+      <!-- POS MOCKUP -->
+      <div class="pos-mockup">
+        <div class="pos-notification">
+          <div class="notif-icon">💚</div>
+          <div>
+            <div class="notif-title">Sale completed</div>
+            <div class="notif-sub">GHS 340 · MTN MoMo ✓</div>
+          </div>
+        </div>
+
+        <div class="pos-screen">
+          <div class="pos-topbar">
+            <div class="pos-topbar-left">
+              <span class="pos-logo-small">dtail</span>
+              <span class="pos-branch">Accra Main</span>
+            </div>
+            <div class="pos-sync">
+              <div class="pos-sync-dot"></div>
+              Ready
+            </div>
+          </div>
+
+          <div class="pos-body">
+            <!-- Items panel -->
+            <div class="pos-items-panel">
+              <div class="pos-search">
+                🔍 Search products or scan barcode
+              </div>
+              <div class="pos-items-grid" id="productGrid">
+                <div class="pos-item active" onclick="addToReceipt(this, 'Rice 5kg', 45)">
+                  <div class="pos-item-name">Rice 5kg</div>
+                  <div class="pos-item-price">GHS 45</div>
+                </div>
+                <div class="pos-item" onclick="addToReceipt(this, 'Cooking Oil 1L', 28)">
+                  <div class="pos-item-name">Cooking Oil 1L</div>
+                  <div class="pos-item-price">GHS 28</div>
+                </div>
+                <div class="pos-item" onclick="addToReceipt(this, 'Sugar 1kg', 12)">
+                  <div class="pos-item-name">Sugar 1kg</div>
+                  <div class="pos-item-price">GHS 12</div>
+                </div>
+                <div class="pos-item" onclick="addToReceipt(this, 'Milo 400g', 38)">
+                  <div class="pos-item-name">Milo 400g</div>
+                  <div class="pos-item-price">GHS 38</div>
+                </div>
+                <div class="pos-item" onclick="addToReceipt(this, 'Tomato 400g', 9)">
+                  <div class="pos-item-name">Tomato 400g</div>
+                  <div class="pos-item-price">GHS 9</div>
+                </div>
+                <div class="pos-item" onclick="addToReceipt(this, 'Milk Tin', 22)">
+                  <div class="pos-item-name">Milk Tin</div>
+                  <div class="pos-item-price">GHS 22</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Receipt panel -->
+            <div class="pos-receipt-panel">
+              <div class="receipt-header">
+                <div class="receipt-biz">Afia's Provisions</div>
+                <div class="receipt-sub">Osu, Accra · Receipt #INV-00847</div>
+              </div>
+              <div class="receipt-items" id="receiptItems">
+                <div class="receipt-item">
+                  <span class="receipt-item-name">Rice 5kg</span>
+                  <span class="receipt-item-price">GHS 45</span>
+                </div>
+              </div>
+              <hr class="receipt-divider">
+              <div class="receipt-total">
+                <span>Total</span>
+                <span class="receipt-total-amount" id="totalDisplay">GHS 45</span>
+              </div>
+              <div class="receipt-pay-methods">
+                <div class="pay-method active">Cash</div>
+                <div class="pay-method" onclick="selectPayment(this)">MoMo</div>
+                <div class="pay-method" onclick="selectPayment(this)">Card</div>
+              </div>
+              <button class="receipt-complete-btn">✓ Complete Sale</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="pos-card-2">
+          <div class="card2-label">Today's Sales</div>
+          <div class="card2-value" id="heroSalesCounter">GHS 0</div>
+          <div class="card2-change">▲ 23% vs yesterday</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item reveal">
+        <div class="stat-number" data-target="8">0</div>
+        <div class="stat-label">Business verticals supported</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-1">
+        <div class="stat-number" data-target="8">0</div>
+        <div class="stat-label">African countries, tax-ready</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-2">
+        <div class="stat-number" data-target="3">0</div>
+        <div class="stat-label">Local languages built-in</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-3">
+        <div class="stat-number" data-suffix="%" data-target="100">0</div>
+        <div class="stat-label">Works without internet</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROBLEM SECTION -->
+<section class="problem-section" id="problem">
+  <div class="container">
+    <div class="section-eyebrow reveal">The Problem</div>
+    <h2 class="reveal">Most businesses lose money<br>from <em>missing detail</em></h2>
+    <p class="problem-lead reveal">Your cashier gives a GHS 50 discount and doesn't record it. Stock runs out and no one notices. You're at a funeral and have no idea what's happening at the shop. The old POS has three months of data locked inside it.</p>
+
+    <div class="problem-cards">
+      <div class="problem-card reveal">
+        <span class="problem-icon">📋</span>
+        <h3>No visibility when away</h3>
+        <p>Business owners leave and go completely blind. Staff know this. Without real-time oversight, small losses become big ones.</p>
+      </div>
+      <div class="problem-card reveal reveal-delay-1">
+        <span class="problem-icon">📴</span>
+        <h3>Internet stops everything</h3>
+        <p>Most POS systems freeze the moment connectivity drops. In Ghana, that can be multiple times per day. Sales stop. Customers leave.</p>
+      </div>
+      <div class="problem-card reveal reveal-delay-2">
+        <span class="problem-icon">📒</span>
+        <h3>Data trapped in old systems</h3>
+        <p>Your current POS has years of valuable data. But you can't see trends, can't monitor remotely, and can't get reports without sitting at the desk.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features-section" id="features">
+  <div class="container">
+    <div class="features-header">
+      <div class="section-eyebrow reveal">What dtail does</div>
+      <h2 class="reveal">One system.<br>Every detail.</h2>
+      <p class="reveal">Not a simple POS. A complete business operating system — with every tool a serious African business needs.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <span class="feature-card-icon">🖥️</span>
+        <h3>Offline-First POS</h3>
+        <p>Works perfectly without internet — forever if needed. Every sale, booking, and stock update saves locally and syncs when you're back online. No interruptions. No data loss.</p>
+        <span class="feature-tag">Core</span>
+      </div>
+      <div class="feature-card reveal reveal-delay-1">
+        <span class="feature-card-icon">📅</span>
+        <h3>Built-in Booking Engine</h3>
+        <p>Accept bookings via WhatsApp, QR code, or a shareable link. Booking becomes a sale in one tap when the customer arrives. Zero double entry.</p>
+        <span class="feature-tag">Booking</span>
+      </div>
+      <div class="feature-card reveal reveal-delay-2">
+        <span class="feature-card-icon">📱</span>
+        <h3>Owner Mobile App</h3>
+        <p>See live sales, staff activity, low stock alerts, and multi-branch reports from your phone. Every notification is actionable — tap to respond, not just read.</p>
+        <span class="feature-tag">Monitoring</span>
+      </div>
+      <div class="feature-card reveal">
+        <span class="feature-card-icon">⚖️</span>
+        <h3>Gold Aggregator</h3>
+        <p>Track every gram from supplier to sale. Purity testing workflow, batch tracking, real-time market pricing, and PMMC compliance reports — built for how gold trading actually works.</p>
+        <span class="feature-tag">Gold</span>
+      </div>
+      <div class="feature-card reveal reveal-delay-1">
+        <span class="feature-card-icon">🌍</span>
+        <h3>Pluggable Tax Engine</h3>
+        <p>GRA, FIRS, DGI and 8 African countries pre-configured. eTIMS integration for Ghana. Add new countries as configuration files, no code changes needed.</p>
+        <span class="feature-tag">Compliance</span>
+      </div>
+      <div class="feature-card reveal reveal-delay-2">
+        <span class="feature-card-icon">💚</span>
+        <h3>WhatsApp Native</h3>
+        <p>Customers book via WhatsApp. Receipts arrive on WhatsApp. Reminders go on WhatsApp. Owners get alerts on WhatsApp. Because that's how Africa communicates.</p>
+        <span class="feature-tag">Payments</span>
+      </div>
+      <div class="feature-card reveal">
+        <span class="feature-card-icon">💳</span>
+        <h3>Africa-First Payments</h3>
+        <p>MTN MoMo, Telecel Cash, and AirtelTigo Money are first-class citizens. Cash is respected. Split payments work. No customer is left behind.</p>
+        <span class="feature-tag">Payments</span>
+      </div>
+      <div class="feature-card reveal reveal-delay-1">
+        <span class="feature-card-icon">👥</span>
+        <h3>Customer Intelligence</h3>
+        <p>Every sale, booking, and credit builds a single customer profile. Loyalty tiers, purchase history, spending patterns — all offline-capable.</p>
+        <span class="feature-tag">Customers</span>
+      </div>
+      <div class="feature-card reveal reveal-delay-2">
+        <span class="feature-card-icon">🔧</span>
+        <h3>Custom Workspace</h3>
+        <p>Car wash, laundry, printing shop — build your own POS workflow with custom fields, statuses, and WhatsApp notifications. No code required.</p>
+        <span class="feature-tag">Custom</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VERTICALS -->
+<section class="verticals-section" id="verticals">
+  <div class="container-wide">
+    <div class="verticals-header container">
+      <div class="section-eyebrow reveal">Industries</div>
+      <h2 class="reveal">Built for your business,<br>not adapted for it</h2>
+    </div>
+
+    <div class="verticals-scroll">
+      <div class="vertical-card reveal">
+        <span class="vertical-emoji">🏪</span>
+        <div class="vertical-name">Supermarket & Retail</div>
+        <p class="vertical-desc">Everything a serious shop needs — from the market stall to the supermarket.</p>
+        <div class="vertical-features">
+          <div class="vertical-feature">Barcode scanning</div>
+          <div class="vertical-feature">Expiry tracking</div>
+          <div class="vertical-feature">Bulk pricing rules</div>
+          <div class="vertical-feature">Supplier POs</div>
+        </div>
+      </div>
+      <div class="vertical-card reveal reveal-delay-1">
+        <span class="vertical-emoji">💊</span>
+        <div class="vertical-name">Pharmacy</div>
+        <p class="vertical-desc">NAFDAC compliance, prescription management, and drug database built in.</p>
+        <div class="vertical-features">
+          <div class="vertical-feature">Drug database</div>
+          <div class="vertical-feature">Expiry alerts</div>
+          <div class="vertical-feature">Controlled substances log</div>
+          <div class="vertical-feature">Dispensing records</div>
+        </div>
+      </div>
+      <div class="vertical-card reveal reveal-delay-2">
+        <span class="vertical-emoji">💇</span>
+        <div class="vertical-name">Salon & Beauty</div>
+        <p class="vertical-desc">Appointment booking, stylist scheduling, client history, and loyalty.</p>
+        <div class="vertical-features">
+          <div class="vertical-feature">WhatsApp booking</div>
+          <div class="vertical-feature">Stylist calendar</div>
+          <div class="vertical-feature">Client style notes</div>
+          <div class="vertical-feature">Commission tracking</div>
+        </div>
+      </div>
+      <div class="vertical-card reveal">
+        <span class="vertical-emoji">🍽️</span>
+        <div class="vertical-name">Restaurant</div>
+        <p class="vertical-desc">Table layout, kitchen display, menu modifiers, and split billing.</p>
+        <div class="vertical-features">
+          <div class="vertical-feature">Kitchen Display System</div>
+          <div class="vertical-feature">Table management</div>
+          <div class="vertical-feature">Menu modifiers</div>
+          <div class="vertical-feature">Split bill</div>
+        </div>
+      </div>
+      <div class="vertical-card reveal reveal-delay-1">
+        <span class="vertical-emoji">🏨</span>
+        <div class="vertical-name">Hotel</div>
+        <p class="vertical-desc">Room grid, check-in/out, housekeeping, and folio billing.</p>
+        <div class="vertical-features">
+          <div class="vertical-feature">Visual room grid</div>
+          <div class="vertical-feature">Guest WhatsApp comms</div>
+          <div class="vertical-feature">Room service to folio</div>
+          <div class="vertical-feature">Night audit</div>
+        </div>
+      </div>
+      <div class="vertical-card reveal reveal-delay-2">
+        <span class="vertical-emoji">⚖️</span>
+        <div class="vertical-name">Gold Aggregator</div>
+        <p class="vertical-desc">Purity testing, batch tracking, supplier management, and PMMC reports.</p>
+        <div class="vertical-features">
+          <div class="vertical-feature">Purity test workflow</div>
+          <div class="vertical-feature">Real-time gold pricing</div>
+          <div class="vertical-feature">Batch tracking</div>
+          <div class="vertical-feature">PMMC compliance</div>
+        </div>
+      </div>
+      <div class="vertical-card reveal">
+        <span class="vertical-emoji">🛒</span>
+        <div class="vertical-name">Custom Workspace</div>
+        <p class="vertical-desc">Car wash, laundry, gym — build your own POS with no code.</p>
+        <div class="vertical-features">
+          <div class="vertical-feature">Custom product fields</div>
+          <div class="vertical-feature">Workflow builder</div>
+          <div class="vertical-feature">Customer WhatsApp updates</div>
+          <div class="vertical-feature">Custom reports</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRIDGE SECTION -->
+<section class="bridge-section" id="bridge">
+  <div class="container">
+    <div class="bridge-grid">
+      <div class="bridge-content">
+        <div class="section-eyebrow reveal">dtail Bridge</div>
+        <h2 class="reveal">Already have a POS?<br>Keep it.</h2>
+        <p class="reveal">dtail Bridge is a lightweight companion that reads your existing POS system's data and sends it to the dtail cloud — silently, automatically, and without touching your existing system.</p>
+        <p class="reveal">Install it in under 10 minutes. See your last 90 days of sales on your phone immediately.</p>
+
+        <div class="bridge-methods">
+          <div class="bridge-method reveal">
+            <div class="bridge-method-icon">🖥️</div>
+            <div>
+              <div class="bridge-method-title">Desktop Agent</div>
+              <div class="bridge-method-desc">Reads SQLite, MS Access, and CSV files from your Windows POS silently in the background.</div>
+            </div>
+          </div>
+          <div class="bridge-method reveal reveal-delay-1">
+            <div class="bridge-method-icon">🌐</div>
+            <div>
+              <div class="bridge-method-title">Browser Extension</div>
+              <div class="bridge-method-desc">One-click Chrome/Edge extension for web-based POS systems. Reads localStorage and IndexedDB.</div>
+            </div>
+          </div>
+          <div class="bridge-method reveal reveal-delay-2">
+            <div class="bridge-method-icon">📄</div>
+            <div>
+              <div class="bridge-method-title">CSV Auto-Import</div>
+              <div class="bridge-method-desc">Export a file from your current POS and upload it — or connect a folder for automatic nightly sync.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bridge Visual -->
+      <div class="reveal reveal-delay-1">
+        <div class="bridge-visual">
+          <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--white-dimmer); margin-bottom: 20px;">Live Connection</div>
+
+          <div class="bridge-flow">
+            <div class="bridge-node">
+              <span class="bridge-node-icon">🏪</span>
+              <div class="bridge-node-text">
+                <div class="bridge-node-title">Existing POS System</div>
+                <div class="bridge-node-sub">Your current software — untouched</div>
+              </div>
+              <span class="bridge-status live">Detected</span>
+            </div>
+
+            <div class="bridge-arrow">↓</div>
+
+            <div class="bridge-node active">
+              <span class="bridge-node-icon">🔗</span>
+              <div class="bridge-node-text">
+                <div class="bridge-node-title">dtail Bridge Agent</div>
+                <div class="bridge-node-sub">Reading data every 15 minutes</div>
+              </div>
+              <span class="bridge-status syncing">Syncing...</span>
+            </div>
+
+            <div class="bridge-arrow">↓</div>
+
+            <div class="bridge-node">
+              <span class="bridge-node-icon">☁️</span>
+              <div class="bridge-node-text">
+                <div class="bridge-node-title">dtail Cloud</div>
+                <div class="bridge-node-sub">Normalised + deduplicated</div>
+              </div>
+              <span class="bridge-status live">Live</span>
+            </div>
+
+            <div class="bridge-arrow">↓</div>
+
+            <div class="bridge-node">
+              <span class="bridge-node-icon">📱</span>
+              <div class="bridge-node-text">
+                <div class="bridge-node-title">Your Phone</div>
+                <div class="bridge-node-sub">Owner mobile app</div>
+              </div>
+              <span class="bridge-status live">Watching</span>
+            </div>
+          </div>
+
+          <div class="bridge-summary">
+            <div class="bridge-sum-item">
+              <div class="bridge-sum-value">1,247</div>
+              <div class="bridge-sum-label">Records imported</div>
+            </div>
+            <div class="bridge-sum-item">
+              <div class="bridge-sum-value">0</div>
+              <div class="bridge-sum-label">Duplicates</div>
+            </div>
+            <div class="bridge-sum-item">
+              <div class="bridge-sum-value">4 min</div>
+              <div class="bridge-sum-label">Last sync</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OWNER APP -->
+<section class="app-section" id="app">
+  <div class="container">
+    <div class="app-grid">
+      <!-- Phone Mockup -->
+      <div class="reveal" style="display: flex; justify-content: center;">
+        <div class="phone-mockup">
+          <div class="phone-outer">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+              <div class="phone-app-header">
+                <div>
+                  <div class="phone-greeting">Good afternoon,</div>
+                  <div class="phone-name">Maame Ama 👋</div>
+                </div>
+                <span class="phone-notif-bell">🔔</span>
+              </div>
+
+              <div class="phone-revenue-card">
+                <div class="phone-rev-label">TODAY'S REVENUE</div>
+                <div class="phone-rev-amount">GHS 4,240</div>
+                <div class="phone-rev-change">▲ 18% vs yesterday</div>
+              </div>
+
+              <div class="phone-stat-row">
+                <div class="phone-stat">
+                  <div class="phone-stat-label">Sales</div>
+                  <div class="phone-stat-value">23</div>
+                </div>
+                <div class="phone-stat">
+                  <div class="phone-stat-label">Staff in</div>
+                  <div class="phone-stat-value">4/6</div>
+                </div>
+              </div>
+
+              <div class="phone-alerts-label">Alerts</div>
+              <div class="phone-alert">
+                <span class="phone-alert-text">🔴 Sugar: 2 bags left</span>
+                <span class="phone-alert-action">Reorder</span>
+              </div>
+              <div class="phone-alert">
+                <span class="phone-alert-text">🟡 Gold pending test</span>
+                <span class="phone-alert-action">Assign</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="app-content">
+        <div class="section-eyebrow reveal">Owner Mobile App</div>
+        <h2 class="reveal">Your business in your<br>pocket. <em>Always.</em></h2>
+        <p class="reveal">Know what's happening at your shop whether you're in a meeting, at a funeral, or in another city. Every notification is actionable — not just informational.</p>
+
+        <div class="app-features">
+          <div class="app-feature reveal">
+            <div class="app-feature-icon">📊</div>
+            <div>
+              <div class="app-feature-title">Live sales dashboard</div>
+              <div class="app-feature-desc">Today's revenue, sales count, vs yesterday — all in real time.</div>
+            </div>
+          </div>
+          <div class="app-feature reveal reveal-delay-1">
+            <div class="app-feature-icon">🔔</div>
+            <div>
+              <div class="app-feature-title">Actionable alerts</div>
+              <div class="app-feature-desc">Low stock, suspicious voids, large sales — with one-tap response buttons.</div>
+            </div>
+          </div>
+          <div class="app-feature reveal reveal-delay-2">
+            <div class="app-feature-icon">👁️</div>
+            <div>
+              <div class="app-feature-title">Staff oversight</div>
+              <div class="app-feature-desc">See who's clocked in, who's selling what, and any discounts given.</div>
+            </div>
+          </div>
+          <div class="app-feature reveal reveal-delay-3">
+            <div class="app-feature-icon">🏢</div>
+            <div>
+              <div class="app-feature-title">Multi-branch view</div>
+              <div class="app-feature-desc">All your locations in one screen. Switch between branches instantly.</div>
+            </div>
+          </div>
+        </div>
+
+        <a href="#" class="btn-primary reveal">Download the App →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LANGUAGES -->
+<section class="lang-section">
+  <div class="container">
+    <div class="section-eyebrow">Languages</div>
+    <h2 class="reveal">Speaks your language.<br>Literally.</h2>
+    <p class="reveal">dtail works in the languages your staff and customers actually use.</p>
+    <div class="lang-grid">
+      <div class="lang-pill reveal">
+        <span class="lang-flag">🇬🇧</span>
+        English
+      </div>
+      <div class="lang-pill reveal reveal-delay-1">
+        <span class="lang-flag">🇫🇷</span>
+        Français
+      </div>
+      <div class="lang-pill reveal reveal-delay-2">
+        <span class="lang-flag">🇬🇭</span>
+        Twi
+      </div>
+      <div class="lang-pill reveal reveal-delay-3">
+        <span class="lang-flag">🇬🇭</span>
+        Pidgin
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
+  <div class="container">
+    <div class="pricing-header">
+      <div class="section-eyebrow reveal">Pricing</div>
+      <h2 class="reveal">Start free. Grow with dtail.</h2>
+      <p class="reveal">All prices in GHS. No hidden fees. No contracts. Cancel anytime.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card reveal">
+        <div class="pricing-name">Starter</div>
+        <div class="pricing-price">
+          <span class="pricing-currency">GHS</span>
+          <span class="pricing-amount">150</span>
+        </div>
+        <div class="pricing-period">per month</div>
+        <p class="pricing-desc">Everything a single-location business needs to get started.</p>
+        <ul class="pricing-features">
+          <li>1 POS terminal</li>
+          <li>1 branch</li>
+          <li>5 staff accounts</li>
+          <li>500 customer profiles</li>
+          <li>Retail module</li>
+          <li>Owner mobile app</li>
+          <li>100 WhatsApp messages/mo</li>
+          <li>1 Bridge connection</li>
+          <li class="dimmed">Gold module</li>
+          <li class="dimmed">Custom workspace</li>
+        </ul>
+        <a href="#" class="btn-pricing btn-pricing-outline">Get started free</a>
+      </div>
+
+      <div class="pricing-card featured reveal reveal-delay-1">
+        <div class="pricing-badge">Most Popular</div>
+        <div class="pricing-name">Business</div>
+        <div class="pricing-price">
+          <span class="pricing-currency">GHS</span>
+          <span class="pricing-amount">450</span>
+        </div>
+        <div class="pricing-period">per month</div>
+        <p class="pricing-desc">For growing businesses with multiple staff and locations.</p>
+        <ul class="pricing-features">
+          <li>Up to 5 terminals</li>
+          <li>Up to 3 branches</li>
+          <li>20 staff accounts</li>
+          <li>5,000 customer profiles</li>
+          <li>Any 2 modules</li>
+          <li>Owner mobile app</li>
+          <li>1,000 WhatsApp messages/mo</li>
+          <li>3 Bridge connections</li>
+          <li>Full reports & exports</li>
+          <li class="dimmed">Custom workspace</li>
+        </ul>
+        <a href="#" class="btn-pricing btn-pricing-gold">Start free trial →</a>
+      </div>
+
+      <div class="pricing-card reveal reveal-delay-2">
+        <div class="pricing-name">Enterprise</div>
+        <div class="pricing-price">
+          <span class="pricing-amount" style="font-size: 40px; color: var(--white);">Custom</span>
+        </div>
+        <div class="pricing-period">contact us</div>
+        <p class="pricing-desc">For large multi-location businesses with complex needs.</p>
+        <ul class="pricing-features">
+          <li>Unlimited terminals</li>
+          <li>Unlimited branches</li>
+          <li>Unlimited staff</li>
+          <li>All modules included</li>
+          <li>Gold aggregator module</li>
+          <li>Custom workspace builder</li>
+          <li>Unlimited WhatsApp</li>
+          <li>Unlimited Bridge connections</li>
+          <li>Full API access</li>
+          <li>Dedicated support</li>
+        </ul>
+        <a href="#" class="btn-pricing btn-pricing-outline">Contact us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section">
+  <div class="container">
+    <div class="testimonials-header">
+      <div class="section-eyebrow reveal">What people say</div>
+      <h2 class="reveal">Trusted by businesses across Ghana</h2>
+    </div>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"I used to drive to the shop every evening just to see the sales. Now I check my phone. I can see everything from wherever I am. Even caught a cashier doing discounts she wasn't supposed to give."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">👩🏾</div>
+          <div>
+            <div class="testimonial-name">Maame Abena</div>
+            <div class="testimonial-role">Provisions shop owner · East Legon, Accra</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card reveal reveal-delay-1">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"The gold tracking is exactly what we needed. Before dtail, we were using notebooks and arguing with suppliers about weights. Now everything has a photo and a timestamp. No more arguments."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">👨🏾</div>
+          <div>
+            <div class="testimonial-name">Kwabena Asante</div>
+            <div class="testimonial-role">Gold aggregator · Kumasi Central Market</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card reveal reveal-delay-2">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"I already had a POS. I wasn't going to replace it. But the Bridge connected it in 8 minutes and now I have the monitoring app. My old data is there too. Best of both worlds."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">💇🏾‍♀️</div>
+          <div>
+            <div class="testimonial-name">Efua Mensah</div>
+            <div class="testimonial-role">Salon owner · Osu, Accra</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="reveal">Stop missing<br><em>the details.</em></h2>
+    <p class="reveal">Join thousands of Ghanaian businesses who know exactly what's happening in their shop — every hour, every day.</p>
+    <div class="cta-actions">
+      <a href="#" class="btn-primary">Start for free — no credit card →</a>
+      <a href="#" class="btn-secondary">Talk to us on WhatsApp</a>
+    </div>
+    <p class="cta-note reveal">Free 30-day trial · GRA compliant · Works offline · Cancels anytime</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo">d<span>.</span>tail</a>
+        <p>Every sale. Every detail. The business operating system for Africa — built in Ghana.</p>
+        <div class="footer-social">
+          <a href="#" class="social-btn">𝕏</a>
+          <a href="#" class="social-btn">in</a>
+          <a href="#" class="social-btn">💚</a>
+          <a href="#" class="social-btn">📘</a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#">POS Terminal</a></li>
+          <li><a href="#">Owner App</a></li>
+          <li><a href="#">Booking Engine</a></li>
+          <li><a href="#">dtail Bridge</a></li>
+          <li><a href="#">Gold Module</a></li>
+          <li><a href="#">Pricing</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Industries</h4>
+        <ul>
+          <li><a href="#">Retail & Supermarket</a></li>
+          <li><a href="#">Pharmacy</a></li>
+          <li><a href="#">Salon & Beauty</a></li>
+          <li><a href="#">Restaurant</a></li>
+          <li><a href="#">Hotel</a></li>
+          <li><a href="#">Gold Aggregator</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Docs</a></li>
+          <li><a href="#">GitHub</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span class="footer-bottom-left">© 2025 dtail. Built in Ghana 🇬🇭 for Africa.</span>
+      <span class="footer-bottom-right">GRA compliant · NDPR compliant · Data Protection Act 2012</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ─── NAV SCROLL ───
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// ─── REVEAL ON SCROLL ───
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ─── COUNT UP ANIMATION ───
+function animateCount(el, target, suffix = '') {
+  const duration = 1500;
+  const start = performance.now();
+  const update = (time) => {
+    const elapsed = time - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.round(eased * target) + suffix;
+    if (progress < 1) requestAnimationFrame(update);
+  };
+  requestAnimationFrame(update);
+}
+
+const statObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const target = parseInt(el.dataset.target);
+      const suffix = el.dataset.suffix || '';
+      animateCount(el, target, suffix);
+      statObserver.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('[data-target]').forEach(el => statObserver.observe(el));
+
+// ─── HERO SALES COUNTER ───
+let heroSales = 0;
+function tickSales() {
+  heroSales += Math.floor(Math.random() * 180) + 60;
+  const el = document.getElementById('heroSalesCounter');
+  if (el) el.textContent = 'GHS ' + heroSales.toLocaleString('en-GH', {minimumFractionDigits: 0});
+  setTimeout(tickSales, 3000 + Math.random() * 2000);
+}
+setTimeout(tickSales, 2000);
+
+// ─── RECEIPT INTERACTIVITY ───
+let total = 45;
+const receiptItems = document.getElementById('receiptItems');
+const totalDisplay = document.getElementById('totalDisplay');
+
+function addToReceipt(el, name, price) {
+  // Remove existing item with same name
+  const existing = Array.from(receiptItems.querySelectorAll('.receipt-item'))
+    .find(item => item.querySelector('.receipt-item-name').textContent === name);
+
+  if (!existing) {
+    total += price;
+    const item = document.createElement('div');
+    item.className = 'receipt-item appearing';
+    item.innerHTML = `<span class="receipt-item-name">${name}</span><span class="receipt-item-price">GHS ${price}</span>`;
+    receiptItems.appendChild(item);
+  } else {
+    existing.remove();
+    total -= price;
+  }
+
+  totalDisplay.textContent = 'GHS ' + total;
+
+  // Toggle active state
+  document.querySelectorAll('#productGrid .pos-item').forEach(i => i.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function selectPayment(el) {
+  document.querySelectorAll('.pay-method').forEach(m => m.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ─── SMOOTH SCROLL FOR NAV LINKS ───
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    const href = this.getAttribute('href');
+    if (href === '#') return;
+    e.preventDefault();
+    const target = document.querySelector(href);
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+</script>
+</body>
+</html>
